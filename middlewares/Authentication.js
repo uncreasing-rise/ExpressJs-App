@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-const SECRET_KEY = process.env.SECRET_KEY || 'your-secret-key' // Use environment variable for the secret key
+const SECRET_KEY = process.env.SECRET_KEY
 
 const authenticateToken = (req, res, next) => {
     // Get the token from the Authorization header

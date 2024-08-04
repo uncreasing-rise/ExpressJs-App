@@ -1,5 +1,3 @@
-// middlewares/cors.js
-
 const allowCors = (req, res, next) => {
     // Set CORS headers
     res.setHeader('Access-Control-Allow-Origin', '*') // Allow all origins

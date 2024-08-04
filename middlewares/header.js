@@ -1,5 +1,3 @@
-// middlewares/header.js
-
 const setHeaders = (req, res, next) => {
     // Set custom headers
     res.setHeader('X-Powered-By', 'Node.js')
