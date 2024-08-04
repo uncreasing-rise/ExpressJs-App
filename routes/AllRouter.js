@@ -29,7 +29,7 @@ router.get(
 router.get(
   "/moderator",
   authenticateToken,
-  authorization(["admin", "moderator"]),
+  authorization(["moderator"]),
   (req, res) => {
     res.send("Welcome Moderator");
   },

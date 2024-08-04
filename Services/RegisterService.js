@@ -1,5 +1,5 @@
 const bcrypt = require("bcrypt");
-const User = require("../Models/User"); // Adjust the path to your User model
+const User = require("../Models/User");
 
 const register = async (name, email, password, role) => {
   try {

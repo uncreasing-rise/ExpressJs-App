@@ -19,7 +19,7 @@ const registerController = async (req, res) => {
     }
 
     // Validate role (example: only allowing 'user' and 'admin')
-    const allowedRoles = ["user", "admin"];
+    const allowedRoles = ["user", "admin","moderator"];
     if (!allowedRoles.includes(role)) {
       return res
         .status(400)
