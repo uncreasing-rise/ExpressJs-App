@@ -1,6 +1,6 @@
 const express = require("express");
 const connectDB = require("./config/db.js");
-const authRoutes = require("./routes/AllRouter.js");
+const authRoutes = require("./Routes/AllRouter.js");
 const setHeaders = require("./middlewares/header.js");
 const allowCors = require("./middlewares/cors.js");
 const errorHandler = require("./middlewares/ErrorHandler.js");
