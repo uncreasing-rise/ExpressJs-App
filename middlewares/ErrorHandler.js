@@ -1,4 +1,3 @@
-// middlewares/errorHandler.js
 const winston = require('winston');
 
 const logger = winston.createLogger({
@@ -13,7 +12,7 @@ const logger = winston.createLogger({
   ],
 });
 
-const errorHandler = (err, req, res, next) => {
+const errorHandler = (err, req, res) => {
   logger.error(`Error: ${err.message}`, { stack: err.stack });
   res.status(err.statusCode || 500).json({
     success: false,

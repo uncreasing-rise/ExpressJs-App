@@ -7,11 +7,9 @@ const registerController = async (req, res) => {
 
     // Check for all required fields
     if (!name || !email || !password || !role) {
-      return res
-        .status(400)
-        .json({
-          error: "All fields are required: name, email, password, and role",
-        });
+      return res.status(400).json({
+        error: "All fields are required: name, email, password, and role",
+      });
     }
 
     // Validate email format
