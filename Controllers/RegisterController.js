@@ -7,7 +7,11 @@ const registerController = async (req, res) => {
 
     // Check for all required fields
     if (!name || !email || !password || !role) {
-      return res.status(400).json({ error: "All fields are required: name, email, password, and role" });
+      return res
+        .status(400)
+        .json({
+          error: "All fields are required: name, email, password, and role",
+        });
     }
 
     // Validate email format
@@ -17,9 +21,11 @@ const registerController = async (req, res) => {
     }
 
     // Validate role (example: only allowing 'user' and 'admin')
-    const allowedRoles = ['user', 'admin'];
+    const allowedRoles = ["user", "admin"];
     if (!allowedRoles.includes(role)) {
-      return res.status(400).json({ error: "Invalid role. Allowed roles are: 'user', 'admin'" });
+      return res
+        .status(400)
+        .json({ error: "Invalid role. Allowed roles are: 'user', 'admin'" });
     }
 
     // Register the new user

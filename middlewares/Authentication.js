@@ -4,7 +4,10 @@ const SECRET_KEY = process.env.SECRET_KEY || 'your-secret-key'; // Use environme
 const authenticateToken = (req, res, next) => {
   // Get the token from the Authorization header
   const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.startsWith('Bearer ') ? authHeader.split(' ')[1] : null;
+  const token =
+    authHeader && authHeader.startsWith('Bearer ')
+      ? authHeader.split(' ')[1]
+      : null;
 
   if (token === null) {
     return res.status(401).json({ error: 'Unauthorized: No token provided' }); // Unauthorized

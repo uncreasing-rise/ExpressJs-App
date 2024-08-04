@@ -1,5 +1,5 @@
 // middlewares/errorHandler.js
-const winston = require("winston");
+const winston = require('winston');
 
 const logger = winston.createLogger({
   level: 'error',
@@ -9,15 +9,15 @@ const logger = winston.createLogger({
   ),
   transports: [
     new winston.transports.Console({ format: winston.format.simple() }),
-    new winston.transports.File({ filename: 'error.log' })
-  ]
+    new winston.transports.File({ filename: 'error.log' }),
+  ],
 });
 
 const errorHandler = (err, req, res, next) => {
   logger.error(`Error: ${err.message}`, { stack: err.stack });
   res.status(err.statusCode || 500).json({
     success: false,
-    message: err.message || 'Server Error'
+    message: err.message || 'Server Error',
   });
 };
 
