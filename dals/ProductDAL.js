@@ -1,27 +1,30 @@
-const Product = require('../Models/Product')
+const Product = require('../Models/Product');
 
 const getAllProducts = async () => {
-    return await Product.find()
-}
+  return Product.find();
+};
+
+const getProductById = async (productId) => {
+  return Product.findById(productId);
+};
 
 const createProduct = async (productData) => {
-    const product = new Product(productData)
-    return await product.save()
-}
+  const product = new Product(productData);
+  return product.save();
+};
 
 const updateProduct = async (productId, productData) => {
-    return await Product.findByIdAndUpdate(productId, productData, {
-        new: true,
-    })
-}
+  return Product.findByIdAndUpdate(productId, productData, { new: true });
+};
 
 const deleteProduct = async (productId) => {
-    return await Product.findByIdAndDelete(productId)
-}
+  return Product.findByIdAndDelete(productId);
+};
 
 module.exports = {
-    getAllProducts,
-    createProduct,
-    updateProduct,
-    deleteProduct,
-}
+  getAllProducts,
+  getProductById,  // Ensure this method is included and exported
+  createProduct,
+  updateProduct,
+  deleteProduct,
+};

@@ -1,18 +1,14 @@
-const allowCors = (req, res, next) => {
-    // Set CORS headers
-    res.setHeader('Access-Control-Allow-Origin', '*') // Allow all origins
-    res.setHeader(
-        'Access-Control-Allow-Methods',
-        'GET, POST, PUT, DELETE, OPTIONS'
-    ) // Allow methods
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization') // Allow headers
+// Middlewares/Cors.js
+function allowCors(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*')
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization')
 
-    // Handle preflight requests
+    // Allow preflight OPTIONS request
     if (req.method === 'OPTIONS') {
         return res.status(200).end()
     }
 
-    // Proceed to the next middleware or route handler
     next()
 }
 
