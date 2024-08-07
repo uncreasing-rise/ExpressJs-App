@@ -1,25 +1,18 @@
-const Product = require('../Models/Product')
+const Product = require('../Models/Product');
 
-const getAllProducts = async () => {
-    return Product.find()
-}
+const getAllProducts = async () => Product.find();
 
-const getProductById = async (productId) => {
-    return Product.findById(productId)
-}
+const getProductById = async (productId) => Product.findById(productId);
 
 const createProduct = async (productData) => {
-    const product = new Product(productData)
-    return product.save()
-}
+    const product = new Product(productData);
+    return product.save();
+};
 
-const updateProduct = async (productId, productData) => {
-    return Product.findByIdAndUpdate(productId, productData, { new: true })
-}
+const updateProduct = async (productId, productData) =>
+    Product.findByIdAndUpdate(productId, productData, { new: true });
 
-const deleteProduct = async (productId) => {
-    return Product.findByIdAndDelete(productId)
-}
+const deleteProduct = async (productId) => Product.findByIdAndDelete(productId);
 
 module.exports = {
     getAllProducts,
@@ -27,4 +20,4 @@ module.exports = {
     createProduct,
     updateProduct,
     deleteProduct,
-}
+};

@@ -1,25 +1,19 @@
-const Customer = require('../models/Customer')
+const Customer = require('../models/Customer');
 
-const getAllCustomers = async () => {
-    return Customer.find()
-}
+const getAllCustomers = async () => Customer.find();
 
-const getCustomerById = async (customerId) => {
-    return Customer.findById(customerId)
-}
+const getCustomerById = async (customerId) => Customer.findById(customerId);
 
 const createCustomer = async (customerData) => {
-    const customer = new Customer(customerData)
-    return customer.save()
-}
+    const customer = new Customer(customerData);
+    return customer.save();
+};
 
-const updateCustomer = async (customerId, customerData) => {
-    return Customer.findByIdAndUpdate(customerId, customerData, { new: true })
-}
+const updateCustomer = async (customerId, customerData) =>
+    Customer.findByIdAndUpdate(customerId, customerData, { new: true });
 
-const deleteCustomer = async (customerId) => {
-    return Customer.findByIdAndDelete(customerId)
-}
+const deleteCustomer = async (customerId) =>
+    Customer.findByIdAndDelete(customerId);
 
 module.exports = {
     getAllCustomers,
@@ -27,4 +21,4 @@ module.exports = {
     createCustomer,
     updateCustomer,
     deleteCustomer,
-}
+};

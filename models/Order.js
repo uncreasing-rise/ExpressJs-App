@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const OrderSchema = new mongoose.Schema(
     {
@@ -25,14 +25,18 @@ const OrderSchema = new mongoose.Schema(
             enum: ['pending', 'shipped', 'delivered', 'cancelled'],
             default: 'pending',
         },
-        total: {
+        totalAmount: {
             type: Number,
             required: true,
+        },
+        discount: {
+            type: Number,
+            default: 0,
         },
     },
     {
         timestamps: true,
     }
-)
+);
 
-module.exports = mongoose.model('Order', OrderSchema)
+module.exports = mongoose.model('Order', OrderSchema);

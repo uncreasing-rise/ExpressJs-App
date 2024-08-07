@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-const { UserRole } = require('../Commons/Enums') // Make sure this path is correct
+const mongoose = require('mongoose');
+const { UserRole } = require('../Commons/Enums'); // Make sure this path is correct
 
 // Define the User schema
 const userSchema = new mongoose.Schema(
@@ -30,9 +30,9 @@ const userSchema = new mongoose.Schema(
     {
         timestamps: true,
     }
-)
+);
 
 // Check if the model already exists to avoid redefining it
-const User = mongoose.models.User || mongoose.model('User', userSchema)
+const User = mongoose.models.User || mongoose.model('User', userSchema);
 
-module.exports = User
+module.exports = User;

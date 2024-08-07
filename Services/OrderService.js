@@ -1,88 +1,90 @@
-const OrderDAL = require('../DALs/OrderDAL')
-const CustomerDAL = require('../DALs/CustomerDAL')
-const ProductDAL = require('../DALs/ProductDAL')
+const OrderDAL = require('../DALs/OrderDAL');
+const CustomerDAL = require('../DALs/CustomerDAL');
+const ProductDAL = require('../DALs/ProductDAL');
 
 const calculateTotal = async (products) => {
-    let total = 0
+    let total = 0;
     for (const item of products) {
-        const product = await ProductDAL.getProductById(item.productId)
+        const product = await ProductDAL.getProductById(item.productId);
         if (product) {
-            total += product.price * item.quantity // Assuming each product has a price field
+            total += product.price * item.quantity;
         } else {
-            throw new Error(`Product with ID ${item.productId} not found`)
+            throw new Error(`Product with ID ${item.productId} not found`);
         }
     }
-    return total
-}
+    return total;
+};
 
 const createOrder = async (orderData) => {
     // Kiểm tra xem ID khách hàng có hợp lệ không
-    const customer = await CustomerDAL.getCustomerById(orderData.customerId)
+    const customer = await CustomerDAL.getCustomerById(orderData.customerId);
     if (!customer) {
-        throw new Error('Customer not found')
+        throw new Error('Customer not found');
     }
 
     // Kiểm tra số lượng của từng sản phẩm trong đơn hàng
     for (const item of orderData.products) {
-        const product = await ProductDAL.getProductById(item.productId)
+        const product = await ProductDAL.getProductById(item.productId);
         if (!product) {
-            throw new Error(`Product with ID ${item.productId} not found`)
+            throw new Error(`Product with ID ${item.productId} not found`);
         }
 
         if (product.quantity < item.quantity) {
-            throw new Error(`Insufficient stock for product ${item.productId}`)
+            throw new Error(`Insufficient stock for product ${item.productId}`);
         }
     }
 
     // Tính tổng giá trị đơn hàng
-    orderData.total = await calculateTotal(orderData.products)
+    const totalAmount = await calculateTotal(orderData.products);
 
     // Nếu tất cả kiểm tra đều thành công, tạo đơn hàng
-    return OrderDAL.createOrder(orderData)
-}
+    const newOrderData = {
+        ...orderData,
+        totalAmount: totalAmount - (orderData.discount || 0),
+    };
+
+    return OrderDAL.createOrder(newOrderData);
+};
 
 const updateOrder = async (orderId, orderData) => {
     // Kiểm tra xem ID khách hàng có hợp lệ không
     if (orderData.customerId) {
-        const customer = await CustomerDAL.getCustomerById(orderData.customerId)
+        const customer = await CustomerDAL.getCustomerById(
+            orderData.customerId
+        );
         if (!customer) {
-            throw new Error('Customer not found')
+            throw new Error('Customer not found');
         }
     }
 
     // Kiểm tra số lượng của từng sản phẩm trong đơn hàng
     if (orderData.products) {
         for (const item of orderData.products) {
-            const product = await ProductDAL.getProductById(item.productId)
+            const product = await ProductDAL.getProductById(item.productId);
             if (!product) {
-                throw new Error(`Product with ID ${item.productId} not found`)
+                throw new Error(`Product with ID ${item.productId} not found`);
             }
 
             if (product.quantity < item.quantity) {
                 throw new Error(
                     `Insufficient stock for product ${item.productId}`
-                )
+                );
             }
         }
 
         // Tính tổng giá trị đơn hàng
-        orderData.total = await calculateTotal(orderData.products)
+        const totalAmount = await calculateTotal(orderData.products);
+        orderData.totalAmount = totalAmount - (orderData.discount || 0);
     }
 
-    return OrderDAL.updateOrder(orderId, orderData)
-}
+    return OrderDAL.updateOrder(orderId, orderData);
+};
 
-const getAllOrders = async () => {
-    return OrderDAL.getAllOrders()
-}
+const getAllOrders = async () => OrderDAL.getAllOrders();
 
-const getOrderById = async (orderId) => {
-    return OrderDAL.getOrderById(orderId)
-}
+const getOrderById = async (orderId) => OrderDAL.getOrderById(orderId);
 
-const deleteOrder = async (orderId) => {
-    return OrderDAL.deleteOrder(orderId)
-}
+const deleteOrder = async (orderId) => OrderDAL.deleteOrder(orderId);
 
 module.exports = {
     createOrder,
@@ -90,4 +92,4 @@ module.exports = {
     getOrderById,
     updateOrder,
     deleteOrder,
-}
+};
