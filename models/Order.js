@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const orderSchema = new mongoose.Schema(
+const OrderSchema = new mongoose.Schema(
     {
         customerId: {
             type: mongoose.Schema.Types.ObjectId,
@@ -20,14 +20,19 @@ const orderSchema = new mongoose.Schema(
                 },
             },
         ],
-        totalAmount: {
+        status: {
+            type: String,
+            enum: ['pending', 'shipped', 'delivered', 'cancelled'],
+            default: 'pending',
+        },
+        total: {
             type: Number,
             required: true,
         },
     },
     {
-        timestamps: true, // Automatically add createdAt and updatedAt fields
+        timestamps: true,
     }
 )
 
-module.exports = mongoose.model('Order', orderSchema)
+module.exports = mongoose.model('Order', OrderSchema)
