@@ -4,6 +4,8 @@ const { loginController } = require('../Controllers/LoginController')
 
 const { authenticateToken } = require('../Middlewares/Authentication')
 const { authorization } = require('../Middlewares/Authorization')
+const productController = require('../Controllers/ProductController')
+const customerController = require('../Controllers/CustomerController')
 
 const router = express.Router()
 
@@ -35,4 +37,12 @@ router.get(
     }
 )
 
+router.get('/', productController.getAllProducts)
+router.post('/', productController.createProduct)
+router.put('/:id', productController.updateProduct)
+router.delete('/:id', productController.deleteProduct)
+router.get('/', customerController.getAllCustomers)
+router.post('/', customerController.createCustomer)
+router.put('/:id', customerController.updateCustomer)
+router.delete('/:id', customerController.deleteCustomer)
 module.exports = router

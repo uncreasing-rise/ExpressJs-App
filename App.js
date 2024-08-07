@@ -1,6 +1,6 @@
 const express = require('express')
 const connectDB = require('./config/db.js')
-const authRoutes = require('./Routes/AllRouter.js')
+const allRouter = require('./Routes/AllRouter.js')
 const setHeaders = require('./Middlewares/Header.js')
 const allowCors = require('./Middlewares/Cors.js')
 const errorHandler = require('./Middlewares/ErrorHandler.js')
@@ -22,10 +22,11 @@ app.use(setHeaders)
 app.use(allowCors)
 
 // Routes
-app.use('/api/auth', asyncHandler(authRoutes))
+app.use('/api/auth', asyncHandler(allRouter))
 
 // Error handling middleware should be the last middleware
 app.use(errorHandler)
-
+app.use('/api/products', asyncHandler(allRouter))
+app.use('/api/customers', asyncHandler(allRouter))
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`))

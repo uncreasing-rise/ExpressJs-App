@@ -1,8 +1,6 @@
 const mongoose = require('mongoose')
-const { UserRole } = require('../Commons/Enums') // Make sure this path is correct
 
-// Define the User schema
-const userSchema = new mongoose.Schema(
+const customerSchema = new mongoose.Schema(
     {
         name: {
             type: String,
@@ -17,14 +15,13 @@ const userSchema = new mongoose.Schema(
             trim: true,
             match: [/.+@.+\..+/, 'Please enter a valid email address'],
         },
-        password: {
+        phone: {
             type: String,
-            required: [true, 'Password is required'],
+            required: [true, 'Phone number is required'],
         },
-        role: {
+        address: {
             type: String,
-            enum: Object.values(UserRole), // Use enums for possible roles
-            default: UserRole.USER, // Default role
+            required: [true, 'Address is required'],
         },
     },
     {
@@ -32,7 +29,6 @@ const userSchema = new mongoose.Schema(
     }
 )
 
-// Check if the model already exists to avoid redefining it
-const User = mongoose.models.User || mongoose.model('User', userSchema)
+const Customer = mongoose.model('Customer', customerSchema)
 
-module.exports = User
+module.exports = Customer
