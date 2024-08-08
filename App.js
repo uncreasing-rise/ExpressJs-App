@@ -1,5 +1,5 @@
 const express = require('express');
-const connectDB = require('./Config/db.js');
+const connectDB = require('./Config/Db.js');
 const authRouter = require('./Routes/AuthRouter.js');
 const productRouter = require('./Routes/ProductRouter.js');
 const customerRouter = require('./Routes/CustomerRouter.js');
