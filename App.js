@@ -7,8 +7,11 @@ const setHeaders = require('./Middlewares/Header.js');
 const allowCors = require('./Middlewares/Cors.js');
 const errorHandler = require('./Middlewares/ErrorHandler.js');
 const asyncHandler = require('./Middlewares/AsyncHandler.js');
-const orderRouter = require('./Routes/OrderRouter.js'); // Ensure correct path
-const setupSwagger = require('./swagger'); // Ensure correct path
+const orderRouter = require('./Routes/OrderRouter.js');
+const setupSwagger = require('./swagger');
+const discountRouter = require('./Routes/DiscountRouter');
+const reviewRouter = require('./Routes/ReviewRouter');
+const csvRouter = require('./Routes/CsvRouter');
 
 require('dotenv').config();
 
@@ -34,6 +37,9 @@ app.use('/api/auth', asyncHandler(authRouter));
 app.use('/api/products', asyncHandler(productRouter));
 app.use('/api/customers', asyncHandler(customerRouter));
 app.use('/api/orders', asyncHandler(orderRouter));
+app.use('/api/discounts', asyncHandler(discountRouter));
+app.use('/api/reviews', asyncHandler(reviewRouter));
+app.use('/api/csv', asyncHandler(csvRouter));
 
 // Error handling middleware should be the last middleware
 app.use(errorHandler);
