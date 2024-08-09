@@ -3,12 +3,13 @@ const csv = require('fast-csv');
 const Customer = require('../models/Customer');
 const Product = require('../Models/Product');
 const Order = require('../Models/Order');
-
+const Discount = require('../Models/Discount');
 const importCSV = async (filePath, model) => {
     const modelMap = {
         customers: Customer,
         products: Product,
         orders: Order,
+        discounts: Discount,
     };
 
     const Model = modelMap[model];
@@ -36,6 +37,7 @@ const exportCSV = async (model) => {
         customers: Customer,
         products: Product,
         orders: Order,
+        reviews: Discount,
     };
 
     const Model = modelMap[model];

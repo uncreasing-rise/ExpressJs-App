@@ -1,0 +1,5 @@
+name,discountType,value,startDate,endDate,isActive
+"Summer Sale","percentage",20,"2024-08-01","2024-08-31",true
+"Black Friday","fixed",50,"2024-11-25","2024-11-30",true
+"New Year Discount","percentage",15,"2024-12-31","2025-01-10",true
+"Clearance Sale","fixed",100,"2024-09-15","2024-09-20",false
