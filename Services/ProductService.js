@@ -1,19 +1,53 @@
-const productDal = require('../DALs/ProductDAL');
+const ProductDAL = require('../dal/productDAL');
 
-const getAllProducts = async () => await productDal.getAllProducts();
+class ProductService {
+    static async createProduct(productData) {
+        try {
+            const product = await ProductDAL.createProduct(productData);
+            return product;
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    }
 
-const createProduct = async (productData) =>
-    await productDal.createProduct(productData);
+    static async getProductById(productId) {
+        try {
+            const product = await ProductDAL.getProductById(productId);
+            return product;
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    }
 
-const updateProduct = async (productId, productData) =>
-    await productDal.updateProduct(productId, productData);
+    static async getAllProducts() {
+        try {
+            const products = await ProductDAL.getAllProducts();
+            return products;
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    }
 
-const deleteProduct = async (productId) =>
-    await productDal.deleteProduct(productId);
+    static async updateProduct(productId, updateData) {
+        try {
+            const updatedProduct = await ProductDAL.updateProduct(
+                productId,
+                updateData
+            );
+            return updatedProduct;
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    }
 
-module.exports = {
-    getAllProducts,
-    createProduct,
-    updateProduct,
-    deleteProduct,
-};
+    static async deleteProduct(productId) {
+        try {
+            await ProductDAL.deleteProduct(productId);
+            return { message: 'Product deleted successfully' };
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    }
+}
+
+module.exports = ProductService;

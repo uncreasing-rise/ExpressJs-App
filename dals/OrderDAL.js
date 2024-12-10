@@ -1,29 +1,28 @@
 const Order = require('../Models/Order');
 
-const getAllOrders = async () =>
-    Order.find().populate('customerId').populate('products.productId');
+class OrderDAL {
+    static async createOrder(orderData) {
+        const order = new Order(orderData);
+        return await order.save();
+    }
 
-const createOrder = async (orderData) => {
-    const order = new Order(orderData);
-    return order.save();
-};
+    static async getOrderById(orderId) {
+        return await Order.findById(orderId)
+            .populate('products.productId')
+            .populate('createdBy updatedBy');
+    }
 
-const updateOrder = async (orderId, orderData) =>
-    Order.findByIdAndUpdate(orderId, orderData, { new: true })
-        .populate('customerId')
-        .populate('products.productId');
+    static async updateOrder(orderId, updateData) {
+        return await Order.findByIdAndUpdate(orderId, updateData, {
+            new: true,
+        });
+    }
 
-const deleteOrder = async (orderId) => Order.findByIdAndDelete(orderId);
+    static async getAllOrders() {
+        return await Order.find()
+            .populate('products.productId')
+            .populate('createdBy updatedBy');
+    }
+}
 
-const getOrderById = async (orderId) =>
-    Order.findById(orderId)
-        .populate('customerId')
-        .populate('products.productId');
-
-module.exports = {
-    getAllOrders,
-    createOrder,
-    updateOrder,
-    deleteOrder,
-    getOrderById,
-};
+module.exports = OrderDAL;
