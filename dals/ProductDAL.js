@@ -1,23 +1,28 @@
 const Product = require('../Models/Product');
 
-const getAllProducts = async () => Product.find();
+class ProductDAL {
+    static async createProduct(productData) {
+        const product = new Product(productData);
+        return await product.save();
+    }
 
-const getProductById = async (productId) => Product.findById(productId);
+    static async getProductById(productId) {
+        return await Product.findById(productId);
+    }
 
-const createProduct = async (productData) => {
-    const product = new Product(productData);
-    return product.save();
-};
+    static async updateProduct(productId, updateData) {
+        return await Product.findByIdAndUpdate(productId, updateData, {
+            new: true,
+        });
+    }
 
-const updateProduct = async (productId, productData) =>
-    Product.findByIdAndUpdate(productId, productData, { new: true });
+    static async getAllProducts() {
+        return await Product.find();
+    }
 
-const deleteProduct = async (productId) => Product.findByIdAndDelete(productId);
+    static async deleteProduct(productId) {
+        return await Product.findByIdAndDelete(productId);
+    }
+}
 
-module.exports = {
-    getAllProducts,
-    getProductById, // Ensure this method is included and exported
-    createProduct,
-    updateProduct,
-    deleteProduct,
-};
+module.exports = ProductDAL;

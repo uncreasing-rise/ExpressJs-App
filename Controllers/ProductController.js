@@ -1,47 +1,51 @@
-const productService = require('../Services/ProductService');
+const ProductService = require('../Services/productService');
 
-const getAllProducts = async (req, res) => {
+class ProductController {
+  static async createProduct(req, res) {
     try {
-        const products = await productService.getAllProducts();
-        res.json(products);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
+      const product = await ProductService.createProduct(req.body);
+      res.status(201).json({ success: true, data: product });
+    } catch (error) {
+      res.status(500).json({ success: false, message: error.message });
     }
-};
+  }
 
-const createProduct = async (req, res) => {
+  static async getProductById(req, res) {
     try {
-        const newProduct = await productService.createProduct(req.body);
-        res.status(201).json(newProduct);
-    } catch (err) {
-        res.status(400).json({ message: err.message });
+      const product = await ProductService.getProductById(req.params.id);
+      if (!product) return res.status(404).json({ success: false, message: 'Product not found' });
+      res.status(200).json({ success: true, data: product });
+    } catch (error) {
+      res.status(500).json({ success: false, message: error.message });
     }
-};
+  }
 
-const updateProduct = async (req, res) => {
+  static async getAllProducts(req, res) {
     try {
-        const updatedProduct = await productService.updateProduct(
-            req.params.id,
-            req.body
-        );
-        res.json(updatedProduct);
-    } catch (err) {
-        res.status(400).json({ message: err.message });
+      const products = await ProductService.getAllProducts();
+      res.status(200).json({ success: true, data: products });
+    } catch (error) {
+      res.status(500).json({ success: false, message: error.message });
     }
-};
+  }
 
-const deleteProduct = async (req, res) => {
+  static async updateProduct(req, res) {
     try {
-        await productService.deleteProduct(req.params.id);
-        res.json({ message: 'Product deleted' });
-    } catch (err) {
-        res.status(500).json({ message: err.message });
+      const updatedProduct = await ProductService.updateProduct(req.params.id, req.body);
+      res.status(200).json({ success: true, data: updatedProduct });
+    } catch (error) {
+      res.status(500).json({ success: false, message: error.message });
     }
-};
+  }
 
-module.exports = {
-    getAllProducts,
-    createProduct,
-    updateProduct,
-    deleteProduct,
-};
+  static async deleteProduct(req, res) {
+    try {
+      const response = await ProductService.deleteProduct(req.params.id);
+      res.status(200).json({ success: true, message: response.message });
+    } catch (error) {
+      res.status(500).json({ success: false, message: error.message });
+    }
+  }
+}
+
+module.exports = ProductController;

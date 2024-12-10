@@ -12,12 +12,17 @@ const logger = winston.createLogger({
     ],
 });
 
-const errorHandler = (err, req, res) => {
+// Error handler middleware
+const errorHandler = (err, req, res, next) => {
+    // Log the error
     logger.error(`Error: ${err.message}`, { stack: err.stack });
+
+    // Respond to the client
     res.status(err.statusCode || 500).json({
         success: false,
         message: err.message || 'Server Error',
     });
+    next();
 };
 
 module.exports = errorHandler;

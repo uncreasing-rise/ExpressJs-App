@@ -18,10 +18,10 @@ const authenticateToken = (req, res, next) => {
     // Verify the token
     jwt.verify(token, SECRET_KEY, (err, user) => {
         if (err) {
-            return res.status(403).json({ error: 'Forbidden: Invalid token' }); // Forbidden
+            return res.status(403).json({ error: 'Forbidden: Invalid token' });
         }
-        req.user = user; // Attach the user info to the request object
-        next(); // Proceed to the next middleware or route handler
+        req.user = user; 
+        next(); 
     });
 };
 
